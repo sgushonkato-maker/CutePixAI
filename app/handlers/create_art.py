@@ -9,3 +9,4 @@ async def create_art(message: Message):
     await message.answer(
         "🌙 Луннышко, отправь фотографию, которую хочешь превратить в арт! 💖"
     )
+    await state.set_state(ArtState.waiting_photo)
