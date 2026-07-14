@@ -1,8 +1,9 @@
-from app.database.db import register_user
 from aiogram import Router
 from aiogram.filters import CommandStart
+from aiogram.filters.command import CommandObject
 from aiogram.types import Message
 
+from app.database.db import register_user
 from app.keyboards.main_menu import get_main_menu
 from app.config import USER_NAME, BOT_CHARACTER
 
@@ -10,7 +11,29 @@ router = Router()
 
 
 @router.message(CommandStart())
-async def start(message: Message):
+async def start(
+    message: Message,
+    command: CommandObject
+):
+
+    invited_by = None
+
+    if command.args:
+
+        try:
+            invited_by = int(command.args)
+
+            if invited_by == message.from_user.id:
+                invited_by = None
+
+        except ValueError:
+            invited_by = None
+
+    await register_user(
+        message.from_user,
+        invited_by
+    )
+
     text = f"""
 🌙 <b>Привет, {USER_NAME}!</b>
 
@@ -28,7 +51,6 @@ async def start(message: Message):
 Выбери действие в меню ниже.
 """
 
-    await register_user(message.from_user) 
     await message.answer(
         text,
         reply_markup=get_main_menu()
