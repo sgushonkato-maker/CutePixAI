@@ -1,5 +1,6 @@
 import asyncio
 
+from app.handlers.daily_bonus import router as bonus_router
 from app.services.bot_info import load_bot_info
 from app.handlers.referral import router as referral_router
 from app.handlers.premium_callback import router as premium_router
@@ -37,6 +38,7 @@ async def main():
     dp.include_router(style_router)
     dp.include_router(premium_router)
     dp.include_router(referral_router)
+    dp.include_router(bonus_router)
 
     print("🌙 CutePix AI запущен!")
 
