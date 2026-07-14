@@ -28,6 +28,10 @@ async def select_style(callback: CallbackQuery, state: FSMContext):
     style = callback.data
 
     await state.update_data(style=style)
+    
+    data = await state.get_data()
+    
+    photo_id = data["photo_id"]
 
     await state.set_state(ArtState.generating)
 
@@ -62,7 +66,38 @@ async def select_style(callback: CallbackQuery, state: FSMContext):
         "🎨 Почти закончила..."
     )
 
-    await fake_generation()
+    image_url = await upload_photo_to_fal(
+    callback.bot,
+    photo_id
+)
+
+result = await generate_image(
+    image_url,
+    style
+)
+
+if result is None:
+
+    await callback.message.answer(
+        "😢 Что-то пошло не так.\nПопробуй ещё раз."
+    )
+
+    await state.clear()
+
+    return
+
+await callback.message.answer_photo(
+
+    photo=result,
+
+    caption="""
+🌙 <b>Готово, Луннышко!</b>
+
+✨ Надеюсь тебе понравится 💖
+"""
+)
+
+await state.clear()
 
     await asyncio.sleep(1)
 
