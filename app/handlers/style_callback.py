@@ -1,7 +1,10 @@
+import asyncio
+
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
+from app.services.generator import fake_generation
 from app.states.art_state import ArtState
 
 router = Router()
@@ -28,19 +31,49 @@ async def select_style(callback: CallbackQuery, state: FSMContext):
 
     await state.set_state(ArtState.generating)
 
-    await callback.message.edit_text(
+    message = await callback.message.edit_text(
         f"""
 🌙 <b>Луннышко...</b>
 
-✨ Уже начинаю творить магию!
+✨ Уже начинаю творить магию...
 
 🎨 Стиль:
 <b>{STYLE_NAMES[style]}</b>
-
-⏳ Обычно это занимает меньше минуты.
-
-Не закрывай чат 💖
 """
     )
 
     await callback.answer()
+
+    await asyncio.sleep(2)
+
+    await message.edit_text(
+        "🌙 Беру немного лунного света... ✨"
+    )
+
+    await asyncio.sleep(2)
+
+    await message.edit_text(
+        "💖 Добавляю чуточку магии..."
+    )
+
+    await asyncio.sleep(2)
+
+    await message.edit_text(
+        "🎨 Почти закончила..."
+    )
+
+    await fake_generation()
+
+    await asyncio.sleep(1)
+
+    await message.edit_text(
+        """
+🖼 <b>Готово!</b>
+
+✨ Пока это тестовая версия CutePix AI.
+
+Совсем скоро здесь появится настоящий ИИ 💖
+"""
+    )
+
+    await state.clear()
