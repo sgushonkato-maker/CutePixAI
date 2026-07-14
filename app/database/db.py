@@ -21,6 +21,8 @@ async def init_db():
             premium INTEGER DEFAULT 0,
             referrals INTEGER DEFAULT 0,
             
+            invited_by INTEGER DEFAULT NULL
+            
             last_bonus TEXT
 
             streak INTEGER DEFAULT 1,
