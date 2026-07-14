@@ -1,17 +1,33 @@
 from aiogram import Router
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
+
+from app.keyboards.styles import styles_keyboard
+from app.states.art_state import ArtState
 
 router = Router()
 
 
-@router.message(lambda message: message.photo)
-async def get_photo(message: Message):
+@router.message(ArtState.waiting_photo)
+async def receive_photo(message: Message, state: FSMContext):
+
+    if not message.photo:
+
+        await message.answer(
+            "🥺 Луннышко...\n\n"
+            "Мне нужна именно фотография 📷💖"
+        )
+
+        return
 
     photo = message.photo[-1]
 
-    from app.keyboards.styles import styles_keyboard
-    
+    await state.update_data(photo_id=photo.file_id)
+
+    await state.set_state(ArtState.waiting_style)
+
     await message.answer(
-    "🌸 Фото получено!\n\nВыбери стиль, Луннышко 💖",
-    reply_markup=styles_keyboard()
-)
+        "🌙 Какая замечательная фотография!\n\n"
+        "✨ Теперь выбери стиль 👇",
+        reply_markup=styles_keyboard()
+    )
