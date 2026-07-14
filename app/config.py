@@ -44,3 +44,5 @@ PREMIUM_STYLES = [
     "🧛 Вампир",
     "🍓 Милота 100 уровня",
 ]
+
+BOT_USERNAME = None
