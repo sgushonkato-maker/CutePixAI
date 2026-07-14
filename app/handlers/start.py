@@ -1,3 +1,4 @@
+from app.database.db import register_user
 from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
@@ -27,6 +28,7 @@ async def start(message: Message):
 Выбери действие в меню ниже.
 """
 
+    await register_user(message.from_user) 
     await message.answer(
         text,
         reply_markup=get_main_menu()
