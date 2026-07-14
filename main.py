@@ -1,5 +1,6 @@
 import asyncio
 
+from app.services.bot_info import load_bot_info
 from app.handlers.referral import router as referral_router
 from app.handlers.premium_callback import router as premium_router
 from app.handlers.style_callback import router as style_router
@@ -24,6 +25,7 @@ async def main():
         token=BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
+    await load_bot_info(bot)
 
     dp = Dispatcher()
 
