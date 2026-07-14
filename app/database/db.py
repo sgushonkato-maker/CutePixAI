@@ -20,6 +20,8 @@ async def init_db():
 
             premium INTEGER DEFAULT 0,
             referrals INTEGER DEFAULT 0,
+            
+            last_bonus TEXT
 
             streak INTEGER DEFAULT 1,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
