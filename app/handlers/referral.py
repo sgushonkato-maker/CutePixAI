@@ -5,7 +5,7 @@ from app.database.db import get_profile
 
 router = Router()
 
-BOT_USERNAME = "CutePixAI_bot"  # Потом заменим автоматически
+from app import config  # Потом заменим автоматически
 
 
 def progress_bar(value: int, maximum: int = 10) -> str:
@@ -27,10 +27,9 @@ async def referral(message: Message):
     referrals = profile[3]
 
     link = (
-        f"https://t.me/{BOT_USERNAME}"
-        f"?start={message.from_user.id}"
+    f"https://t.me/{config.BOT_USERNAME}"
+    f"?start={message.from_user.id}"
     )
-
     await message.answer(
         f"""
 🌙 <b>Приглашай Луннышек!</b>
