@@ -1,5 +1,6 @@
 import asyncio
 
+from app.handlers.create_art import router as create_art_router
 from app.handlers.profile import router as profile_router
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -25,6 +26,7 @@ async def main():
     # Подключаем роутеры
     dp.include_router(start_router)
     dp.include_router(profile_router)
+    dp.include_router(create_art_router)
 
     print("🌙 CutePix AI запущен!")
 
