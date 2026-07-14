@@ -47,9 +47,7 @@ PREMIUM_STYLES = [
 
 BOT_USERNAME = None
 
-FAL_API_KEY = os.getenv("FAL_API_KEY")
+FAL_KEY = os.getenv("FAL_KEY")
 
-if not FAL_API_KEY:
-    raise ValueError(
-        "❌ FAL_API_KEY не найден. Добавь его в .env или в переменные окружения."
-    )
+if not FAL_KEY:
+    raise ValueError("Не найден FAL_KEY")
