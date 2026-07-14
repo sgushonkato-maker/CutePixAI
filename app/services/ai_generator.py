@@ -1,42 +1,35 @@
 import fal_client
 
-from app.config import FAL_API_KEY
 from app.texts.prompts import STYLE_PROMPTS
-
-
-fal_client.api_key = FAL_API_KEY
 
 
 async def generate_image(
     image_url: str,
     style: str,
-) -> str:
+) -> str | None:
 
     prompt = STYLE_PROMPTS.get(
         style,
-        STYLE_PROMPTS["style_anime"]
+        STYLE_PROMPTS["style_anime"],
     )
 
     try:
 
         result = fal_client.subscribe(
-
-            "fal-ai/flux-pro/kontext",
-
+            "fal-ai/flux/dev/image-to-image",
             arguments={
-
-                "prompt": prompt,
-
                 "image_url": image_url,
-
+                "prompt": prompt,
+                "strength": 0.85,
+                "guidance_scale": 3.5,
+                "num_inference_steps": 28,
+                "num_images": 1,
+                "output_format": "jpeg",
             },
-
         )
 
         return result["images"][0]["url"]
 
     except Exception as e:
-
-        print(e)
-
+        print(f"Fal AI error: {e}")
         return None
