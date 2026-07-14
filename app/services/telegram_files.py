@@ -10,9 +10,9 @@ async def upload_photo_to_fal(
     file_id: str,
 ) -> str:
     """
-    Скачивает фото из Telegram,
-    загружает его в Fal CDN
-    и возвращает публичный URL.
+    Скачивает фотографию из Telegram,
+    загружает её в Fal CDN
+    и возвращает URL.
     """
 
     telegram_file = await bot.get_file(file_id)
@@ -25,15 +25,19 @@ async def upload_photo_to_fal(
         temp_path = tmp.name
 
     try:
+
         await bot.download_file(
             telegram_file.file_path,
             destination=temp_path,
         )
 
-        image_url = fal_client.upload_file(temp_path)
+        image_url = await fal_client.upload_file(
+            temp_path
+        )
 
         return image_url
 
     finally:
+
         if os.path.exists(temp_path):
             os.remove(temp_path)
