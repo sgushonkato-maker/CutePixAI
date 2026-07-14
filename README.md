@@ -1,20 +1,10 @@
-# 🌸 CutePix AI
+# CutePix AI
 
-Добро пожаловать в CutePix AI!
+Starter project structure for the CutePix AI Telegram bot.
 
-CutePix AI — это Telegram-бот для генерации красивых изображений с помощью искусственного интеллекта.
-
-## Возможности
-
-- 🎀 Аниме
-- 🩷 Сёдзё
-- 🖤 Дарк Кьют
-- 🌿 Ghibli
-- ✨ Фэнтези
-
-### Скоро
-
-- 👥 Реферальная система
-- 💎 Premium
-- 🌙 Лунные кристаллы
-- 🎁 Ежедневные бонусы
+Planned features:
+- Telegram bot (aiogram 3)
+- AI image generation
+- Premium
+- Referral system
+- Moon Crystals

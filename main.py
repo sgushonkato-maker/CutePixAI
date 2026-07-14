@@ -1,0 +1,1 @@
+print("CutePix AI starter. Bot code will be added in the next step.")
